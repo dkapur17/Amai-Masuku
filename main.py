@@ -122,12 +122,14 @@ if __name__ == '__main__':
 
         filtered_boxes = []
         filtered_classIDs = []
-        for i in idxs.flatten():
-            (x, y) = (boxes[i][0], boxes[i][1])
-            (w, h) = (boxes[i][2], boxes[i][3])
-            filtered_boxes.append((x, y, w, h))
-            filtered_classIDs.append(classIDs[i])
-            csv_obj.append((x, y, w, h, classIDs[i]))
+
+        if len(idxs) > 0:
+            for i in idxs.flatten():
+                (x, y) = (boxes[i][0], boxes[i][1])
+                (w, h) = (boxes[i][2], boxes[i][3])
+                filtered_boxes.append((x, y, w, h))
+                filtered_classIDs.append(classIDs[i])
+                csv_obj.append((x, y, w, h, classIDs[i]))
 
         objects = ct.update(filtered_boxes, filtered_classIDs)
         if len(idxs) > 0:
