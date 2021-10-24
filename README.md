@@ -16,7 +16,10 @@ Takes input of video, detects people with and without masks, and tracks them thr
 
 Running the model:
 
-`python3 ...`
+`python3 main.py -i <input_file> -o <output_file> -d 0/1`
+- -i: flag for input file 
+- -o: flag for output file 
+- -d: flag for display during program run
 
 **Output Video:** The model adds a rectangle tracker around faces and colors it based on:
 
@@ -72,16 +75,6 @@ Running the model:
 | [YOLOv4](https://github.com/adityap27/face-mask-detector/blob/master/media/YOLOv4%20Performance.jpg?raw=true) |    99.65%    |     88.38%     |  93.95%  |
 
 - Yolov4 achieves good performance as it has **Low bias** and **Medium Variance**.
-
-## Can we do better?
-
-- As described earlier that YOLOv4 is giving 93.95% mAP on Test Set, this can be improved in the following ways:
-
-  1. Use more Training Data.
-  2. Use more Data Augmentation for Training Data.
-  3. Train with larger network-resolution by setting your `.cfg-file` (height=640 and width=640) (any value multiple of 32).
-  4. For Detection use even larger network-resolution like 864x864.
-  5. Try YOLOv5 or any other Object Detection Algorithms like SSD, Faster-RCNN, RetinaNet, etc. as they are very good as of now (year 2020).
 
 ## References
 
