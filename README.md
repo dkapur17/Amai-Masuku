@@ -16,7 +16,10 @@ Takes input of video, detects people with and without masks, and tracks them thr
 
 Running the model:
 
-`python3 ...`
+`python3 main.py -i <input_file> -o <output_file> -d 0/1`
+- -i: flag for input file 
+- -o: flag for output file 
+- -d: flag for display during program run
 
 **Output Video:** The model adds a rectangle tracker around faces and colors it based on:
 
