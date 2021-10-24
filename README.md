@@ -2,82 +2,77 @@
 
 Megathon 2021 Submission
 
-It detects human faces with mask and no-mask even in real time. It keeps track of all people wearning and not wearing a mask in every frame.
+A system that accepts a video and detects human faces with mask and no-mask even in and tracks them across the frames. 
 
-[Weights Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/sidharth_giri_students_iiit_ac_in/EdcPoaXm0ZRImds55ekNgNoB2_MwChngyUsNQCN-D51eoA?e=fFzIf2)
-
-[Input Videos Link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/arihanth_srikar_research_iiit_ac_in/Es1LrdXYd7xMkDpbierdVfYB8gV-hDCzXrvZ1CqQC74Y5A?e=16hrGs)
+[Input Videos Link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/arihanth_srikar_research_iiit_ac_in/Es1LrdXYd7xMkDpbierdVfYBOEZ76tWqFTRCyHA2057GBg?e=Ehp2Br)
 
 [Output Link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/sidharth_giri_students_iiit_ac_in/Erk7sF-f5L5BjbTO4Y84eMYB8V4Bz3w5pPpnd2lQ7orSIQ?e=Rvfu1N)
 
-## Running on video
+## Repository Structure
 
-Takes input of video, detects people with and without masks, and tracks them throughout the video using the centroid tracking algorithm.
+The repo has 2 main parts:
+
+### Training
+
+This folder has the data for training the YOLOV4 model on the dataset using Darknet. The dataset consists of images collected from Google, Bing and a [Kaggle Dataset](https://www.kaggle.com/vtech6/medical-masks-dataset).
+
+The images were annoted using [Labelimg Tool](https://github.com/tzutalin/labelImg). The resulting dataset was split into Train, Test and Validation sets.
+
+We cloned Darknet (inside `Training/darknet`, which is empty for the interest of space, but can be cloned independently) and built it from source. This was used to train the model.
+
+Darknet accepts a network configuration [`mask.cfg`](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/mask.cfg), initial weights [`yolov4.conv.137`](https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137) (These are pretrained weights on the COCO Dataset) and dataset information [`obj.data`](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/obj.data).
+
+After training, Darknet saves the weights in the `backup` directory. The weights are too large to upload on github, so they've been uploaded on OneDrive. Here's the [link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/sidharth_giri_students_iiit_ac_in/EdcPoaXm0ZRImds55ekNgNoB2_MwChngyUsNQCN-D51eoA?e=fFzIf2).
+
+#### Model details
+
+- Data File = [obj.data](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/obj.data) (contains training, testing and validation data)
+- Cfg file = [mask.cfg](https://github.com/dkapur17/Amai-Masuku/blob/master/mask.cfg)
+- Pretrained Weights for initialization= [yolov4.conv.137](https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137)
+- Main Configs from mask.cfg:
+  - learning_rate = 0.001
+  - batch = 64
+  - subdivisions = 64
+  - steps = 4800, 5400
+  - max_batches = 6000
+  - approx epochs = (6000\*64)/700 = 548
+- Final weights after training on Face-mask Dataset: [mask.weights](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/sidharth_giri_students_iiit_ac_in/EdcPoaXm0ZRImds55ekNgNoB2_MwChngyUsNQCN-D51eoA?e=fFzIf2)
+
+#### Model Performance
+
+* Training Set Accuracy: 99.65%
+* Validation Set Accuracy: 88.38%
+* Test Set Accuracy: 93.95%
+
+### Evaluation
+
+The evalutaion part takes a video as input and outputs an augmented video with bounding boxes, along with data files are specified in the requirements.
+
+It uses OpenCV to go through the video frame by frame. We load the YOLOV4 model and the trained weights into OpenCV and use it for object detection on each frame. From there, we use the Centroid Tracking algorithm to track objects across frames. It keeps track of unique faces, masked and unmasked, and writes the data to the required files.
 
 Running the model:
 
-`python3 main.py -i <input_file> -o <output_file> -d 0/1`
-- -i: flag for input file 
+Before you can run the model, you need to make sure you have downloaded the weights to the `Evaluation` directory. You can download the weights from [here](https://iiitaphyd-my.sharepoint.com/personal/sidharth_giri_students_iiit_ac_in/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fsidharth%5Fgiri%5Fstudents%5Fiiit%5Fac%5Fin%2FDocuments%2Fmask%2Eweights&parent=%2Fpersonal%2Fsidharth%5Fgiri%5Fstudents%5Fiiit%5Fac%5Fin%2FDocuments&originalPath=aHR0cHM6Ly9paWl0YXBoeWQtbXkuc2hhcmVwb2ludC5jb20vOnU6L2cvcGVyc29uYWwvc2lkaGFydGhfZ2lyaV9zdHVkZW50c19paWl0X2FjX2luL0VkY1BvYVhtMFpSSW1kczU1ZWtOZ05vQjJfTXdDaG5neVVzTlFDTi1ENTFlb0E%5FcnRpbWU9OTF1Z1p1aVcyVWc).
+
+```bash
+python3 main.py -i <input_file> -o <output_file> -d <0_or_1> -C <path_to_csv> -T <path_to_textfile>
+```
+- -i: flag for input file. If not specified, 
 - -o: flag for output file 
-- -d: flag for display during program run
+- -d: flag for display during program run. 0 for no display, 1 for display. Set it to 0 for faster processing.
+- -C: flag to specify the path to csv
+- -T: flag to specify path to text file
 
 **Output Video:** The model adds a rectangle tracker around faces and colors it based on:
 
 - **Green:** person is wearing a mask.
 - **Red:** person is not wearing a mask.
 
-## Model
+## Overall Pipeline
 
-**Deep Learning Model:** We are using YOLOv4 on my own dataset. YOLOv4 achieved **93.95% mAP on Test Set**. The test set contained realistic blur images, small + medium + large faces which represent the real world images of average quality.
+The following flowchart represents the overall pipeline:
 
-**YOLOv4 Training details**
-
-- Data File = obj.data (contains training, testing and validation data)
-- Cfg file = [mask.cfg](https://github.com/dkapur17/Amai-Masuku/blob/master/mask.cfg)
-- Pretrained Weights for initialization= [Weights Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/sidharth_giri_students_iiit_ac_in/EdcPoaXm0ZRImds55ekNgNoB2_MwChngyUsNQCN-D51eoA?e=fFzIf2)
-- Main Configs from yolov4-obj.cfg:
-  - learning_rate=0.001
-  - batch=64
-  - subdivisions=64
-  - steps=4800,5400
-  - max_batches = 6000
-  - i.e approx epochs = (6000\*64)/700 = 548
-- **YOLOv4 Training results: _1.19 avg loss_**
-- **Weights** of YOLOv4 trained on Face-mask Dataset: [yolov4_face_mask.weights](https://bit.ly/yolov4_mask_weights)
-
-## Dataset
-
-- Images were collected from [Google Images](https://www.google.com/imghp?hl=en), [Bing Images](https://www.bing.com/images/trending?form=Z9LH) and some [Kaggle Datasets](https://www.kaggle.com/vtech6/medical-masks-dataset).
-
-- Images were annoted using [Labelimg Tool](https://github.com/tzutalin/labelImg).
-
-- Dataset is split into 3 sets:
-  | _Set_ | Number of images | Objects with mask | Objects without mask |
-  | :----------------: | :--------------: | :---------------: | :------------------: |
-  | **Training Set** | 700 | 3047 | 868 |
-  | **Validation Set** | 100 | 278 | 49 |
-  | **Test Set** | 120 | 503 | 156 |
-  | **Total** | 920 | 3828 | 1073 |
-
-- **Download the Dataset here**:
-
-  - [Github Link](https://github.com/adityap27/face-mask-detector/tree/master/dataset) or
-  - [Kaggle Link](https://www.kaggle.com/aditya276/face-mask-dataset-yolo-format)
-
-## Performance
-
-- Below is the comparison of YOLOv4 on 3 sets.
-- **Metric is mAP@0.5** i.e Mean Average Precision.
-- **Frames per Second (FPS)** was measured on **Google Colab GPU - Tesla P100-PCIE** using **Darknet** command: [link](https://github.com/AlexeyAB/darknet#how-to-evaluate-fps-of-yolov4-on-gpu)
-
-|                                                     Model                                                     | Training Set | Validation Set | Test Set |
-| :-----------------------------------------------------------------------------------------------------------: | :----------: | :------------: | :------: |
-| [YOLOv4](https://github.com/adityap27/face-mask-detector/blob/master/media/YOLOv4%20Performance.jpg?raw=true) |    99.65%    |     88.38%     |  93.95%  |
-
-- Yolov4 achieves good performance as it has **Low bias** and **Medium Variance**.
-
-## References
-
-- [YOLOv4 Paper](https://arxiv.org/abs/2004.10934)
-- [Darknet github Repo](https://github.com/AlexeyAB/darknet)
-- [YOLO Inference with GPU](https://www.pyimagesearch.com/2020/02/10/opencv-dnn-with-nvidia-gpus-1549-faster-yolo-ssd-and-mask-r-cnn/)
+<p align="center">
+<img src="Flowchart.png" width="500" alt="Pipeline"/>
+</p>
+<!-- ![Pipeline](Flowchart.png =250x) -->
