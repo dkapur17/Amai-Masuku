@@ -5,4 +5,5 @@
 __pycache__
 Videos/
 Output/
-images/
+build/
+process.sh
