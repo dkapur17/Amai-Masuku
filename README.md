@@ -1,6 +1,10 @@
 # Amai-Masuku
 
-Megathon 2021 Submission
+<p align="center">
+   <img src="Amai-Masuku-Banner.png" alt="Banner"/>
+</p>
+
+### Megathon 2021 Submission
 
 A system that detects faces with and without masks, tracks them and gives statistics. 
 
