@@ -73,16 +73,6 @@ Running the model:
 
 - Yolov4 achieves good performance as it has **Low bias** and **Medium Variance**.
 
-## Can we do better?
-
-- As described earlier that YOLOv4 is giving 93.95% mAP on Test Set, this can be improved in the following ways:
-
-  1. Use more Training Data.
-  2. Use more Data Augmentation for Training Data.
-  3. Train with larger network-resolution by setting your `.cfg-file` (height=640 and width=640) (any value multiple of 32).
-  4. For Detection use even larger network-resolution like 864x864.
-  5. Try YOLOv5 or any other Object Detection Algorithms like SSD, Faster-RCNN, RetinaNet, etc. as they are very good as of now (year 2020).
-
 ## References
 
 - [YOLOv4 Paper](https://arxiv.org/abs/2004.10934)
