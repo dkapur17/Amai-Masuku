@@ -11,7 +11,9 @@ Libraries:
 - cv2: for openCV video handling 
 
 How to run inference 
-Execute the command python3 main.py -i <input_file> -o <output_file> -d 0/1 
+Execute the command python3 main.py -i <input_file> -o <output_file> -d 0/1 -C <path_to_csv_file> -T <pat_to_text_file>
 -i is the flag for the input video file
 -o is the flag for the output video file 
 -d is the flag for whether the video needs to be rendered frame by frame while the program is running
+-C is the flag for path to csv frame statistics file, ensure the directory structure exists
+-T is the flag for path to text subject statistics file, ensure the directory structure exists

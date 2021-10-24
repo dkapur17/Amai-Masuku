@@ -18,7 +18,7 @@ The repo has 2 main parts:
 
 ### Training
 
-This folder has the data for training the YOLOV4 model on the dataset using Darknet. The dataset consists of images collected from Google, Bing and a [Kaggle Dataset](https://www.kaggle.com/vtech6/medical-masks-dataset).
+This folder has the data for training the YOLOV4 model on the dataset using Darknet. The [dataset](https://github.com/dkapur17/Amai-Masuku/tree/master/Training/dataset) consists of images collected from Google, Bing and Kaggle.
 
 The images were annoted using [Labelimg Tool](https://github.com/tzutalin/labelImg). The resulting dataset was split into Train, Test and Validation sets.
 
