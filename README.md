@@ -18,10 +18,10 @@ Running the model:
 
 `python3 ...`
 
-**Output Video:** It monitors the mask, no-mask counts and has 2 status :
+**Output Video:** The model adds a rectangle tracker around faces and colors it based on:
 
-- **Green:** When person is wearing a mask.
-- **Red:** When person is not wearing a mask.
+- **Green:** person is wearing a mask.
+- **Red:** person is not wearing a mask.
 
 ## Model
 
@@ -29,7 +29,7 @@ Running the model:
 
 **YOLOv4 Training details**
 
-- Data File = [obj.data](https://raw.githubusercontent.com/adityap27/face-mask-detector/master/yolov4-mask-detector/obj.data)
+- Data File = obj.data (contains training, testing and validation data)
 - Cfg file = [mask.cfg](https://github.com/dkapur17/Amai-Masuku/blob/master/mask.cfg)
 - Pretrained Weights for initialization= [Weights Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/sidharth_giri_students_iiit_ac_in/EdcPoaXm0ZRImds55ekNgNoB2_MwChngyUsNQCN-D51eoA?e=fFzIf2)
 - Main Configs from yolov4-obj.cfg:
@@ -67,9 +67,9 @@ Running the model:
 - **Metric is mAP@0.5** i.e Mean Average Precision.
 - **Frames per Second (FPS)** was measured on **Google Colab GPU - Tesla P100-PCIE** using **Darknet** command: [link](https://github.com/AlexeyAB/darknet#how-to-evaluate-fps-of-yolov4-on-gpu)
 
-|                                                     Model                                                     | Training Set | Validation Set | Test Set |  FPS   |
-| :-----------------------------------------------------------------------------------------------------------: | :----------: | :------------: | :------: | :----: |
-| [YOLOv4](https://github.com/adityap27/face-mask-detector/blob/master/media/YOLOv4%20Performance.jpg?raw=true) |    99.65%    |     88.38%     |  93.95%  | 22 FPS |
+|                                                     Model                                                     | Training Set | Validation Set | Test Set |
+| :-----------------------------------------------------------------------------------------------------------: | :----------: | :------------: | :------: |
+| [YOLOv4](https://github.com/adityap27/face-mask-detector/blob/master/media/YOLOv4%20Performance.jpg?raw=true) |    99.65%    |     88.38%     |  93.95%  |
 
 - Yolov4 achieves good performance as it has **Low bias** and **Medium Variance**.
 
