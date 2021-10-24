@@ -2,7 +2,7 @@
 
 Megathon 2021 Submission
 
-A system that accepts a video and detects human faces with mask and no-mask even in and tracks them across the frames. 
+A system that detects faces with and without masks, tracks them and gives statistics. 
 
 [Input Videos Link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/arihanth_srikar_research_iiit_ac_in/Es1LrdXYd7xMkDpbierdVfYBOEZ76tWqFTRCyHA2057GBg?e=Ehp2Br)
 
