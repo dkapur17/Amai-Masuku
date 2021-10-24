@@ -20,13 +20,13 @@ The images were annoted using [Labelimg Tool](https://github.com/tzutalin/labelI
 
 We cloned Darknet (inside `Training/darknet`, which is empty for the interest of space, but can be cloned independently) and built it from source. This was used to train the model.
 
-Darknet accepts a network configuration [`mask.cfg`](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/mask.cfg), initial weights [`yolov4.conv.137`](https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137) (These are pretrained weights on the COCO Dataset) and dataset information [`obj.data`](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/obj.data).
+Darknet accepts a network configuration [`mask.cfg`](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/mask.cfg), initial weights [`yolov4.conv.137`](https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137) (These are pretrained weights on the COCO Dataset) and dataset information [`mask.data`](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/mask.data).
 
 After training, Darknet saves the weights in the `backup` directory. The weights are too large to upload on github, so they've been uploaded on OneDrive. Here's the [link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/sidharth_giri_students_iiit_ac_in/EdcPoaXm0ZRImds55ekNgNoB2_MwChngyUsNQCN-D51eoA?e=fFzIf2).
 
 #### Model details
 
-- Data File = [obj.data](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/obj.data) (contains training, testing and validation data)
+- Data File = [mask.data](https://github.com/dkapur17/Amai-Masuku/blob/master/Training/mask.data) (contains training, testing and validation data)
 - Cfg file = [mask.cfg](https://github.com/dkapur17/Amai-Masuku/blob/master/mask.cfg)
 - Pretrained Weights for initialization= [yolov4.conv.137](https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.conv.137)
 - Main Configs from mask.cfg:
@@ -52,9 +52,12 @@ It uses OpenCV to go through the video frame by frame. We load the YOLOV4 model 
 
 Running the model:
 
-Before you can run the model, you need to make sure you have downloaded the weights to the `Evaluation` directory. You can download the weights from [here](https://iiitaphyd-my.sharepoint.com/personal/sidharth_giri_students_iiit_ac_in/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fsidharth%5Fgiri%5Fstudents%5Fiiit%5Fac%5Fin%2FDocuments%2Fmask%2Eweights&parent=%2Fpersonal%2Fsidharth%5Fgiri%5Fstudents%5Fiiit%5Fac%5Fin%2FDocuments&originalPath=aHR0cHM6Ly9paWl0YXBoeWQtbXkuc2hhcmVwb2ludC5jb20vOnU6L2cvcGVyc29uYWwvc2lkaGFydGhfZ2lyaV9zdHVkZW50c19paWl0X2FjX2luL0VkY1BvYVhtMFpSSW1kczU1ZWtOZ05vQjJfTXdDaG5neVVzTlFDTi1ENTFlb0E%5FcnRpbWU9OTF1Z1p1aVcyVWc).
+Before you can run the model, you need to *make sure you have downloaded the weights* to the `Evaluation` directory. You can download the weights from [here](https://iiitaphyd-my.sharepoint.com/personal/sidharth_giri_students_iiit_ac_in/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fsidharth%5Fgiri%5Fstudents%5Fiiit%5Fac%5Fin%2FDocuments%2Fmask%2Eweights&parent=%2Fpersonal%2Fsidharth%5Fgiri%5Fstudents%5Fiiit%5Fac%5Fin%2FDocuments&originalPath=aHR0cHM6Ly9paWl0YXBoeWQtbXkuc2hhcmVwb2ludC5jb20vOnU6L2cvcGVyc29uYWwvc2lkaGFydGhfZ2lyaV9zdHVkZW50c19paWl0X2FjX2luL0VkY1BvYVhtMFpSSW1kczU1ZWtOZ05vQjJfTXdDaG5neVVzTlFDTi1ENTFlb0E%5FcnRpbWU9OTF1Z1p1aVcyVWc).  
+Install the required packages and run the program
 
 ```bash
+python3 -m pip install -r requirements.txt
+cd Evaluation
 python3 main.py -i <input_file> -o <output_file> -d <0_or_1> -C <path_to_csv> -T <path_to_textfile>
 ```
 - -i: flag for input file. If not specified, 

@@ -45,8 +45,6 @@ if __name__ == '__main__':
                     help="minimum probability to filter weak detections")
     ap.add_argument("-t", "--threshold", type=float, default=0.3,
                     help="threshold when applyong non-maxima suppression")
-    ap.add_argument("-u", "--use-gpu", type=bool, default=0,
-                    help="boolean indicating if CUDA GPU should be used")
     ap.add_argument("-C", "--csv", type=str, required=True,
                     help="CSV file to output frame statistics")
     ap.add_argument("-T", "--txt", type=str, required=True,
@@ -60,11 +58,6 @@ if __name__ == '__main__':
 
     print("[INFO] loading YOLO from disk...")
     net = cv2.dnn.readNetFromDarknet("mask.cfg", "mask.weights")
-
-    if args["use_gpu"]:
-        print("[INFO] setting prefereable backend and target to CUDA...")
-        net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
-        net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
     ln = net.getLayerNames()
     try:
