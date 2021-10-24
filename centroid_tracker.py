@@ -16,7 +16,7 @@ class CentroidTracker():
         self.objects[self.nextObjectID] = centroid
         self.disappeared[self.nextObjectID] = 0
         self.nextObjectID += 1
-        self.entry_exit_data.append((self.frames/30, -1, True))
+        self.entry_exit_data.append((self.frames/30, -1, [0, 0]))
 
     def deregister(self, objectID):
         del self.objects[objectID]
@@ -88,9 +88,11 @@ class CentroidTracker():
                         id = mp['id']
                 if id == -1:
                     continue
+                new_mask = list(self.entry_exit_data[key][2])
+                new_mask[mask_stats[id]] += 1
                 self.entry_exit_data[key] = (self.entry_exit_data[key][0],
                                              self.entry_exit_data[key][1],
-                                             self.entry_exit_data[key][2] and mask_stats[id])
+                                             new_mask)
 
         self.frames += 1
         return self.objects
@@ -99,4 +101,4 @@ class CentroidTracker():
         f = open(file_name, 'w')
         for i, entry in enumerate(self.entry_exit_data):
             f.write(
-                f'{i + 1}. Entry: {entry[0]:.2f}s, Exit:  {round(entry[1], 2) if entry[1] > 0 else "---"}s, Mask: {["No","Yes"][entry[2]]}\n')
+                f'{i + 1}. Entry: {entry[0]:.2f}s, Exit:  {round(entry[1], 2) if entry[1] > 0 else "---"}s, Mask: {["No","Yes"][int(entry[2][1] > entry[2][0])]}\n')

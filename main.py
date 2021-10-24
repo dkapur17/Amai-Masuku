@@ -11,7 +11,7 @@ def write_to_csv(csv_file, frame_no, csv_obj):
         with open(csv_file) as f:
             pass
     except FileNotFoundError:
-        with open(csv_file, 'w') as f:
+        with open(csv_file, 'x') as f:
             f.write(
                 "Frame Number, Total non-masked faces, Total masked faces, Non-masked Face ROIs, Masked Faces ROIs\n")
 
