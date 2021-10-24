@@ -1,0 +1,17 @@
+Frameworks: 
+- OpenCV: Used for video processing 
+- DarkNet: Used for the YOLOv4 network
+
+Libraries: 
+- SciPy: calculating distance between bounding boxes for centroid tracking algorithm
+- NumPy: matrix methods 
+- imutils: image processing utilities
+- argparse: to parse command line arguments 
+- tqdm: to display video conversion progress
+- cv2: for openCV video handling 
+
+How to run inference 
+Execute the command python3 main.py -i <input_file> -o <output_file> -d 0/1 
+-i is the flag for the input video file
+-o is the flag for the output video file 
+-d is the flag for whether the video needs to be rendered frame by frame while the program is running

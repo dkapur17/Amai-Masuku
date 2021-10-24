@@ -6,6 +6,10 @@ It detects human faces with mask and no-mask even in real time. It keeps track o
 
 [Weights Link](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/sidharth_giri_students_iiit_ac_in/EdcPoaXm0ZRImds55ekNgNoB2_MwChngyUsNQCN-D51eoA?e=fFzIf2)
 
+[Input Videos Link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/arihanth_srikar_research_iiit_ac_in/Es1LrdXYd7xMkDpbierdVfYB8gV-hDCzXrvZ1CqQC74Y5A?e=16hrGs)
+
+[Output Link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/sidharth_giri_students_iiit_ac_in/Erk7sF-f5L5BjbTO4Y84eMYB8V4Bz3w5pPpnd2lQ7orSIQ?e=Rvfu1N)
+
 ## Running on video
 
 Takes input of video, detects people with and without masks, and tracks them throughout the video using the centroid tracking algorithm.

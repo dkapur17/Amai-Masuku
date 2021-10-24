@@ -1,8 +1,8 @@
 *.mp4
 *.csv
-*.txt
+*.jpg
 *.weights
 __pycache__
 Videos/
 Output/
-Output_New/
+images/

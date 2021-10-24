@@ -1,0 +1,7 @@
+argparse
+imutils
+numpy
+skbuild
+opencv-python
+scipy
+tqdm
